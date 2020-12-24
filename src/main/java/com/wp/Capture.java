@@ -22,6 +22,12 @@ public class Capture implements Runnable {
     private final static String PATTERN = "a(.*?),(.*?)z";
 
     /**
+     * Number of data values to skip upon start of application.
+     * This is to eliminate outlier data.
+     */
+    private final static int SKIP_COUNT = 5;
+
+    /**
      * Valid data format of captured data.
      */
     private final Pattern capturePattern = Pattern.compile(PATTERN);
@@ -64,22 +70,25 @@ public class Capture implements Runnable {
 
         final StringBuilder sb = new StringBuilder();
         final byte[] newData = new byte[1];
+        int skipCountIndex = 0;
         while (true) {
             while (sp.bytesAvailable() >= 1) {
                 sp.readBytes(newData, newData.length);
                 final String data = new String(newData);
                 if (";".equals(data)) {
-                    final String bufferData = sb.toString();
-                    final Matcher captureMatcher = capturePattern.matcher(bufferData);
-                    if (captureMatcher.find()) {
-                        try {
-                            final long value1 = Long.parseLong(captureMatcher.group(1));
-                            final double value2 = Double.parseDouble(captureMatcher.group(2));
-                            for (DataProcessor dataProcessor : processors) {
-                                dataProcessor.addData(value1, value2);
+                    if (SKIP_COUNT < skipCountIndex++) {
+                        final String bufferData = sb.toString();
+                        final Matcher captureMatcher = capturePattern.matcher(bufferData);
+                        if (captureMatcher.find()) {
+                            try {
+                                final long value1 = Long.parseLong(captureMatcher.group(1));
+                                final double value2 = Double.parseDouble(captureMatcher.group(2));
+                                for (DataProcessor dataProcessor : processors) {
+                                    dataProcessor.addData(value1, value2);
+                                }
+                            } catch (NumberFormatException nfe) {
+                                // Do nothing
                             }
-                        } catch (NumberFormatException nfe) {
-                            // Do nothing
                         }
                     }
                     sb.delete(0, sb.length());
