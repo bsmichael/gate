@@ -12,10 +12,11 @@ void setup() {
 // Read data from radio receiver's data wire and send it 
 // (and the time in which it was read) to the serial bus.
 void loop() {
+  Serial.print("a");
   Serial.print(millis());
   Serial.print(",");
   Serial.print(analogRead(DATA));
-  Serial.print(";");
+  Serial.print("z;");
 }
 
 // Function to be called once bit pattern is deciphered to open the gate

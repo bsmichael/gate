@@ -2,9 +2,9 @@ package com.wp;
 
 /**
  * Converts groups of data values into a number.
- * Assumes each data point is a bit in the binary word that comprises the number.
+ * Assumes each data point is a bit to be summed.
  */
-public class BinaryHypothesis implements DataProcessor {
+public class SumHypothesis implements DataProcessor {
 
     /**
      * Binary "word" size.
@@ -29,7 +29,7 @@ public class BinaryHypothesis implements DataProcessor {
     /**
      * Constructor.
      */
-    public BinaryHypothesis() {
+    public SumHypothesis() {
         // Do something
     }
 
@@ -86,6 +86,6 @@ public class BinaryHypothesis implements DataProcessor {
      */
     private void log(final String line) {
         // TODO: write this out to a file?
-        System.out.println("[BinaryHypothesis] " + line);
+        System.out.println("[SumHypothesis] " + line);
     }
 }
