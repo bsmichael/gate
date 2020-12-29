@@ -19,7 +19,7 @@ public class RawTimeSeriesUI extends ApplicationFrame implements DataProcessor {
     /**
      * Number of data points to display in the time series.
      */
-    private final static int NUM_DATA_POINTS = 200;
+    private final static int NUM_DATA_POINTS = 600;
 
     /**
      * Time series data.

@@ -17,3 +17,7 @@ Change to the `gate` directory
 
 Run the application with
    `mvn clean package exec:java -Dexec.mainClass="com.wp.App"`
+
+Notes (Observations):  Gate opens while button is pressed, not when button is released.  
+    Wave/signal has a 1/5 - 1/4 period of low value after button is released followed by 3/4 - 4/5 of a second 
+    at a high value.

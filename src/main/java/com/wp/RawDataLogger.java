@@ -13,7 +13,7 @@ public class RawDataLogger implements DataProcessor {
     /**
      * File name prefix.
      */
-    private final static String PREFIX = "001010101";
+    private final static String PREFIX = "111000111";
 
     /**
      * PrintWriter.
