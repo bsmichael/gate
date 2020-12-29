@@ -1,6 +1,9 @@
 package com.wp;
 
 import com.fazecast.jSerialComm.SerialPort;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -58,6 +61,34 @@ public class Capture implements Runnable {
      */
     @Override
     public void run() {
+        readDataFromFile();
+    }
+
+    private void readDataFromFile() {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader("data/111111111.csv"));
+            in.readLine();
+            while (in.ready()) {
+                String[] lineParts = in.readLine().split(",");
+                try {
+                    for (DataProcessor dataProcessor : processors) {
+                        dataProcessor.addData(Long.parseLong(lineParts[0]), Double.parseDouble(lineParts[2]));
+                    }
+                } catch (Exception e) {
+                    //System.out.println("[Capture] ERROR: " + e.getMessage());
+                }
+            }
+            for (DataProcessor dataProcessor : processors) {
+                dataProcessor.finished();
+            }
+        } catch (Exception e) {
+            //System.out.println("[Capture] ERROR: " + e.getMessage());
+            try { in.close(); } catch (Exception e2) {}
+        }
+    }
+
+    private void readDataFromSerialPort() {
         SerialPort sp = SerialPort.getCommPort(SERIAL_PORT);
         sp.setComPortParameters(9600, 8, 1, 0);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);

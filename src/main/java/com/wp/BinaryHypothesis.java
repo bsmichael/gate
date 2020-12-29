@@ -52,6 +52,11 @@ public class BinaryHypothesis implements DataProcessor {
         }
     }
 
+    @Override
+    public void finished() {
+        // Do nothing
+    }
+
     /**
      * Prints out the decimal equivalent to the binary value captured.
      */

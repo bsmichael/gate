@@ -49,4 +49,9 @@ public class RawDataLogger implements DataProcessor {
         }
     }
 
+    @Override
+    public void finished() {
+        // Do nothing
+    }
+
 }

@@ -12,7 +12,7 @@ public class App {
      */
     public static void main(String[] args) {
         Capture capture = new Capture();
-        capture.registerDataProcessor(new RawDataLogger());
+        //capture.registerDataProcessor(new RawDataLogger());
         capture.registerDataProcessor(new RawTimeSeriesUI());
         //capture.registerDataProcessor(new BinaryHypothesis());
         //capture.registerDataProcessor(new SumHypothesis());

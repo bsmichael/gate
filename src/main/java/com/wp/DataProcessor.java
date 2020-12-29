@@ -12,4 +12,6 @@ public interface DataProcessor {
      * @param value of the data captured
      */
     void addData(final long time, final double value);
+
+    void finished();
 }
